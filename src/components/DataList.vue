@@ -34,31 +34,12 @@ const handleDelete = async (user) => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Evet, Sil',
-      cancelButtonText: 'İptal',
-      background: '#fff',
-      borderRadius: '0.5rem',
-      customClass: {
-        popup: 'rounded-lg',
-        title: 'text-lg font-bold text-gray-800',
-        htmlContainer: 'text-gray-600'
-      }
+      cancelButtonText: 'İptal'
     })
 
     if (result.isConfirmed) {
       await userStore.deleteUser(user.id)
-
-      Swal.fire({
-        title: 'Silindi!',
-        text: 'Kullanıcı başarıyla silindi.',
-        icon: 'success',
-        timer: 1500,
-        showConfirmButton: false,
-        background: '#fff',
-        borderRadius: '0.5rem',
-        customClass: {
-          popup: 'rounded-lg'
-        }
-      })
+      toast.success('Kullanıcı başarıyla silindi')
     }
   } catch (error) {
     toast.error("Silme işlemi başarısız: " + error.message)
@@ -67,13 +48,13 @@ const handleDelete = async (user) => {
 </script>
 
 <template>
-  <div class="p-6 bg-gray-50 min-h-screen">
-    <!-- Üst Başlık ve Ekleme Butonu -->
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold text-gray-800">Kullanıcı Yönetimi</h1>
+  <div class="p-4 md:p-6 bg-gray-50 min-h-screen">
+    <!-- Üst başlık ve buton -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+      <h1 class="text-xl md:text-2xl font-bold text-gray-800">Kullanıcı Yönetimi</h1>
       <button
           @click="showForm = true; editingUser = null"
-          class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2 transition-colors duration-200"
+          class="w-full md:w-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 transition-colors duration-200"
       >
         <UserPlusIcon class="w-5 h-5" />
         <span>Yeni Kullanıcı Ekle</span>
@@ -92,65 +73,43 @@ const handleDelete = async (user) => {
     </div>
 
     <!-- Kullanıcı Listesi -->
-    <div v-else class="bg-white rounded-lg shadow overflow-hidden">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-        <tr>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Kullanıcı
-          </th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Email
-          </th>
-          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-            İşlemler
-          </th>
-        </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-        <tr v-for="user in userStore.users" :key="user.id" class="hover:bg-gray-50">
-          <td class="px-6 py-4 whitespace-nowrap">
-            <div class="flex items-center">
-              <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
-                {{ user.name.charAt(0).toUpperCase() }}
-              </div>
-              <div class="ml-4">
-                <div class="text-sm font-medium text-gray-900">
-                  {{ user.name }}
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap">
-            <div class="text-sm text-gray-900">{{ user.email }}</div>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-right">
-            <div class="flex items-center justify-end gap-3">
-              <button
-                  @click="handleEdit(user)"
-                  class="text-blue-600 hover:text-blue-800 p-1 hover:bg-blue-50 rounded-full transition-colors duration-200"
-                  title="Düzenle"
-              >
-                <PencilSquareIcon class="w-5 h-5" />
-              </button>
-              <button
-                  @click="handleDelete(user)"
-                  class="text-red-600 hover:text-red-800 p-1 hover:bg-red-50 rounded-full transition-colors duration-200"
-                  title="Sil"
-              >
-                <TrashIcon class="w-5 h-5" />
-              </button>
-            </div>
-          </td>
-        </tr>
-        <!-- Veri yoksa gösterilecek mesaj -->
-        <tr v-if="userStore.users.length === 0">
-          <td colspan="3" class="px-6 py-4 text-center text-gray-500">
-            Henüz kullanıcı bulunmamaktadır.
-          </td>
-        </tr>
-        </tbody>
-      </table>
+    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div v-for="user in userStore.users" :key="user.id"
+           class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200">
+        <div class="flex items-center mb-4">
+          <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xl">
+            {{ user.name.charAt(0).toUpperCase() }}
+          </div>
+          <div class="ml-4">
+            <div class="text-lg font-medium text-gray-900">{{ user.name }}</div>
+            <div class="text-sm text-gray-500">{{ user.email }}</div>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2">
+          <button
+              @click="handleEdit(user)"
+              class="inline-flex items-center px-3 py-1.5 text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-full transition-colors duration-200"
+              title="Düzenle"
+          >
+            <PencilSquareIcon class="w-4 h-4 mr-1" />
+            Düzenle
+          </button>
+          <button
+              @click="handleDelete(user)"
+              class="inline-flex items-center px-3 py-1.5 text-sm text-red-600 hover:text-red-800 hover:bg-red-50 rounded-full transition-colors duration-200"
+              title="Sil"
+          >
+            <TrashIcon class="w-4 h-4 mr-1" />
+            Sil
+          </button>
+        </div>
+      </div>
+
+      <!-- Veri yoksa gösterilecek mesaj -->
+      <div v-if="userStore.users.length === 0" class="col-span-full text-center py-8 text-gray-500">
+        Henüz kullanıcı bulunmamaktadır.
+      </div>
     </div>
 
     <!-- Kullanıcı Form Modal -->

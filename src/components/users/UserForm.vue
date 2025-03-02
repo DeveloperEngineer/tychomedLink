@@ -28,7 +28,6 @@ const errors = ref({
 
 const isLoading = ref(false)
 
-
 const validateName = () => {
   if (!form.value.name) {
     errors.value.name = 'Ad Soyad alanı zorunludur'
@@ -93,10 +92,10 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
-    <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md m-4 p-6">
+  <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center p-4 z-50">
+    <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-auto">
       <!-- Modal Başlık -->
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center justify-between p-6 border-b">
         <h2 class="text-2xl font-bold text-gray-800">
           {{ isEdit ? 'Kullanıcı Düzenle' : 'Yeni Kullanıcı Ekle' }}
         </h2>
@@ -111,7 +110,7 @@ const handleSubmit = async () => {
       </div>
 
       <!-- Form -->
-      <form @submit.prevent="handleSubmit" class="space-y-6">
+      <form @submit.prevent="handleSubmit" class="p-6 space-y-6">
         <!-- Ad Soyad Input -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">
