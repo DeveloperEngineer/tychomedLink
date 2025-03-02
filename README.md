@@ -1,29 +1,64 @@
-# tychomedlink
+# TychomedLink
 
-This template should help get you started developing with Vue 3 in Vite.
+Modern web teknolojileri kullanılarak geliştirilmiş kullanıcı yönetim sistemi.
 
-## Recommended IDE Setup
+## Kullanılan Teknolojiler
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Vue 3** - Modern web framework
+- **Composition API** - Vue 3'ün reaktif programlama yaklaşımı
+- **Tailwind CSS** - Utility-first CSS framework
+- **Firebase/Firestore** - Gerçek zamanlı veritabanı
+- **Pinia** - Vue 3 için state management
+- **Vue Toastification** - Bildirim sistemi
+- **SweetAlert2** - Modern dialog/alert kutuları
+- **Heroicons** - Modern SVG ikonlar
 
-## Customize configuration
+## Özellikler
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- 🚀 Modern ve responsive tasarım
+- 📱 Mobil uyumlu arayüz
+- ✨ Gerçek zamanlı CRUD işlemleri
+- 🔍 Form validasyonları
+- 🎨 Modern bildirim sistemi
+- 🔐 Güvenli Firebase entegrasyonu
+- 📊 State management ile merkezi veri yönetimi
 
-## Project Setup
+## Proje Yapısı
 
-```sh
-npm install
-```
+- `components/` - Yeniden kullanılabilir Vue bileşenleri
+- `stores/` - Pinia store dosyaları
+- `firebase/` - Firebase konfigürasyonu
+- `views/` - Sayfa bileşenleri
 
-### Compile and Hot-Reload for Development
+## Geliştirme Yaklaşımı
 
-```sh
-npm run dev
-```
+1. Modern component mimarisi
+2. Composition API ile reaktif programlama
+3. Merkezi state yönetimi
+4. Modüler ve yeniden kullanılabilir componentler
+5. Modern UI/UX pratikleri
+6. Güvenli veritabanı işlemleri
 
-### Compile and Minify for Production
+## Kurulum
 
-```sh
-npm run build
-```
+1. Repoyu klonlayın
+2. `.env.example` dosyasını `.env` olarak kopyalayın
+3. Firebase bilgilerinizi `.env` dosyasına ekleyin
+4. Bağımlılıkları yükleyin: `npm install`
+5. Geliştirme sunucusunu başlatın: `npm run dev`
+## Ekran Görüntüleri
+
+![](./screenshots/s1.png)
+
+![](./screenshots/s2.png)
+
+![](./screenshots/s3.png)
+
+![](./screenshots/s4.png)
+
+![](./screenshots/s5.png)
+
+
+## Lisans
+
+Bu proje MIT lisansı ile lisanslanmıştır.
