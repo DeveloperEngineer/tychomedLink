@@ -30,11 +30,11 @@ const isLoading = ref(false)
 
 const validateName = () => {
   if (!form.value.name) {
-    errors.value.name = 'Ad Soyad alanı zorunludur'
+    errors.value.name = 'Full Name field is required'
     return false
   }
   if (form.value.name.length < 3) {
-    errors.value.name = 'Ad Soyad en az 3 karakter olmalıdır'
+    errors.value.name = 'Full Name must be at least 3 characters'
     return false
   }
   errors.value.name = ''
@@ -44,11 +44,11 @@ const validateName = () => {
 const validateEmail = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!form.value.email) {
-    errors.value.email = 'Email alanı zorunludur'
+    errors.value.email = 'Email field is required'
     return false
   }
   if (!emailRegex.test(form.value.email)) {
-    errors.value.email = 'Geçerli bir email adresi giriniz'
+    errors.value.email = 'Email is not valid'
     return false
   }
   errors.value.email = ''
@@ -63,7 +63,7 @@ const handleSubmit = async () => {
   if (!isFormValid.value) {
     validateName()
     validateEmail()
-    toast.error("Lütfen form alanlarını kontrol ediniz!")
+    toast.error("Please fill in the required fields correctly.")
     return
   }
 
@@ -74,17 +74,17 @@ const handleSubmit = async () => {
         name: form.value.name,
         email: form.value.email
       })
-      toast.success("Kullanıcı başarıyla güncellendi!")
+      toast.success("User updated successfully!")
     } else {
       await userStore.addUser({
         name: form.value.name,
         email: form.value.email
       })
-      toast.success("Kullanıcı başarıyla eklendi!")
+      toast.success("User added successfully!")
     }
     emit('close')
   } catch (error) {
-    toast.error("Bir hata oluştu: " + error.message)
+    toast.error("An error occurred: " + error.message)
   } finally {
     isLoading.value = false
   }
@@ -97,7 +97,7 @@ const handleSubmit = async () => {
       <!-- Modal Başlık -->
       <div class="flex items-center justify-between p-6 border-b">
         <h2 class="text-2xl font-bold text-gray-800">
-          {{ isEdit ? 'Kullanıcı Düzenle' : 'Yeni Kullanıcı Ekle' }}
+          {{ isEdit ? 'Edit User' : 'Add New User' }}
         </h2>
         <button
             @click="emit('close')"
@@ -114,7 +114,7 @@ const handleSubmit = async () => {
         <!-- Ad Soyad Input -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">
-            Ad Soyad
+            Full Name
           </label>
           <input
               type="text"
@@ -148,7 +148,7 @@ const handleSubmit = async () => {
                 ? 'border-red-500 focus:ring-red-500'
                 : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'
             ]"
-              placeholder="ornek@email.com"
+              placeholder="example@email.com"
           >
           <p v-if="errors.email" class="mt-1 text-sm text-red-600">
             {{ errors.email }}
@@ -162,7 +162,7 @@ const handleSubmit = async () => {
               @click="emit('close')"
               class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
           >
-            İptal
+            Cancel
           </button>
           <button
               type="submit"
@@ -179,10 +179,10 @@ const handleSubmit = async () => {
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Kaydediliyor...
+              Saving...
             </span>
             <span v-else>
-              {{ isEdit ? 'Güncelle' : 'Kaydet' }}
+              {{ isEdit ? 'Update' : 'Save' }}
             </span>
           </button>
         </div>

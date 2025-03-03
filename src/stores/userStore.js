@@ -1,12 +1,13 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore'
+import { collection, getDocs, addDoc, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/firebase/config.js'
 
 export const useUserStore = defineStore('user', () => {
     const users = ref([])
     const isLoading = ref(false)
     const error = ref(null)
+    const currentUser = ref(null)
 
     const fetchUsers = async () => {
         try {
@@ -67,6 +68,29 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    const fetchUserById = async (userId) => {
+        isLoading.value = true
+        error.value = null
+        try {
+            const docRef = doc(db, 'users', userId)
+            const docSnap = await getDoc(docRef)
+
+            if (docSnap.exists()) {
+                currentUser.value = {
+                    id: docSnap.id,
+                    ...docSnap.data()
+                }
+            } else {
+                error.value = 'Kullanıcı bulunamadı'
+            }
+        } catch (err) {
+            error.value = err.message
+            throw err
+        } finally {
+            isLoading.value = false
+        }
+    }
+
     return {
         users,
         isLoading,
@@ -74,6 +98,8 @@ export const useUserStore = defineStore('user', () => {
         fetchUsers,
         addUser,
         updateUser,
-        deleteUser
+        deleteUser,
+        fetchUserById,
+        currentUser
     }
 })

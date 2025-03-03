@@ -2,6 +2,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import Toast from 'vue-toastification'
 import "vue-toastification/dist/index.css"
+import router from '@/router/index.js'
 
 import App from './App.vue'
 import {createPinia} from "pinia";
@@ -26,6 +27,7 @@ const toastOptions = {
 }
 
 app.use(pinia)
+app.use(router)
 app.use(Toast, toastOptions)
 
 app.mount('#app')

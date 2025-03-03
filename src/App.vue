@@ -5,7 +5,7 @@ import Index from "@/views/Index.vue";
 
 <template>
   <MainLayout>
-    <Index />
+      <router-view></router-view>
   </MainLayout>
 </template>
 
