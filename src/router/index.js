@@ -4,7 +4,7 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: () => import('@/components/DataList.vue')
+        component: () => import('@/views/Index.vue')
     },
     {
         path: '/user-matrix/:userId',
